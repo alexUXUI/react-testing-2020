@@ -80,7 +80,7 @@ But first: What are the elements we will need for a basic todo list? 👀
 2. An input form to name new list items
 3. A submit button to add the new items to the list
 
-Let's write a test that renders our `<TodoList />` component, and then inspects the HTML within the `container` div that gets returned from the render Method.
+Let's update our test so that it renders our `<TodoList />` component, and then inspects the HTML within the `container` div that gets returned from the render Method.
 
 ```tsx
 test('Should have the necessary elements', () => {
@@ -90,14 +90,10 @@ test('Should have the necessary elements', () => {
 
 #### Container Object
 
-The wrapper `<div>` is called the `container` and it is _always_ wrapped around your compiled react code.
-
 As you can see, the render method returns an object
-which has a `container` object on it. The `container` is a wrapper `<div>` that TLR wraps around the HTML resulting from the `render` method.
-Since the `container` object is a HTML div, we can interact with the `container` object just like we would interact with the DOM and any DOM element. For example, we can get properties like `constainer.style` or methods like `container.getAttribute()`.
+which has a `container` object on it. The `container` is a wrapper `<div>` that TLR wraps around HTML resulting from the `render` method.
 
-Conceptually, the `container` is a wrapper around the
-HTML that gets returned from the `render` method. It's purpose is to provide a consistent way to handle the output of the `render` method.
+Since the `container` object is a HTML div, we can interact with the `container` object just like we would interact with the DOM and any DOM element. For example, we can get properties like `constainer.style` or methods like `container.getAttribute()`. It's purpose is to provide a consistent way to handle the output of the `render` method.
 
 With that in mind, let's verify that our container element is indeed a `<div />`
 
