@@ -92,10 +92,20 @@ Run the test again and you should see
   ✓ Should have the necessary elements (27ms)
 ```
 
-Congratulations! You've just used your first TLR test methods to test drive
-a react applicaiton. Kent Dodds would be proud!
+Congratulations! You've just used your first test methods to test-drive
+a react app. Kent Dodds would be proud!
 
-In the next lesson, we're going to learn how to use TLR to interact with the
-DOM through simulated events like button clicks and input text typing.
+#### Activity Section
 
-Please checkout the branch second-test-querying
+Now that we know about querying the DOM, let's finish this first test to include the rest of the elements our basic todo list will need. The elements we mentioned in the first section are:
+
+1. List (test completed)
+2. Text input
+3. Submit button
+
+Be sure to write the tests for 2 and 3 first, let them fail, and then make them pass with new component code. The answer to this section is in the next branch.
+
+In the next lesson, we're going to learn how to to interact with the
+DOM through simulated events like button clicks and text input.
+
+Please checkout the branch `second-test-querying`
