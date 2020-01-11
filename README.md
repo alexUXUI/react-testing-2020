@@ -25,28 +25,21 @@ Let's import a couple of dependencies we will need to write tests.
 2. Testing Library React (TLR)
 3. Our App code
 
-First, we need to bring in react. This is because our app code
-is written in react.
+First, we'll bring in react.
 
 ```tsx
 import React from 'react'
 ```
 
-Next, we need to bring in our testing library.
+Next, we'll bring in our testing library.
 
 ```tsx
 import { render } from '@testing-library/react'
 ```
 
-From TLR, we are bringing in the `render` method. The `render` method takes a react element and renders it to a DOM within a `<div />` element.
-
-This
-
-```html
-<div></div>
-```
-
-is called the `container` in TLR and it is _always_ wrapped around your compiled react code.
+Next, we'll bring in the render mehtod from TLR. The render method
+takes our React JSX code, compiles it, render it to HTML, ad returns
+a DOM with the output HTML for us to interact with in our tests.
 
 For our last dependency, we are going to include our application code so we have something to test.
 
@@ -64,26 +57,30 @@ export const TodoList: React.FC = () => {
 }
 ```
 
-Now that we have everything we need, let's dive in with some tests!
+Now that we have everything we need, let's dive in with some tests! 🎉
 
 #### Writing our first test
 
-The syntax for a test in Testing library is a function named `test` which takes to arguments: the name of the test, a call back function where
-the test is defined.
+The syntax for a test in Testing library React (TLR) starts with a function named `test`. This function takes two arguments:
+
+1. The name of the test
+2. A callback function where the test is defined.
 
 ```jsx
-test('Should have the necessary elements', () => {})
+test('Should have the necessary elements', () => {
+  // test goes here
+})
 ```
 
-Let's go ahead and fill this test out. To do this, we need to use TLR to find the elements we will need to have a working ToDo list.
+The test specifies that the app has all the necessary markup so let's go ahead and fill this test out. To do this, we need to use TLR to find the elements we will need to have a working ToDo list.
 
-But first: What are the elements we will need for a basic todo list?
+But first: What are the elements we will need for a basic todo list? 👀
 
 1. A list element
 2. An input form to name new list items
 3. A submit button to add the new items to the list
 
-Let's go ahead and write a test that renders our list component, and then inspects the HTML within the `container` div that gets returned from the render Method.
+Let's write a test that renders our `<TodoList />` component, and then inspects the HTML within the `container` div that gets returned from the render Method.
 
 ```tsx
 test('Should have the necessary elements', () => {
@@ -93,11 +90,17 @@ test('Should have the necessary elements', () => {
 
 #### Container Object
 
-As you can see, the render method returns an object which has a container object on it. This container object is regular HTML. As such, you can interact with it just like you would interact with the DOM and any DOM element. For example, we
-can get attributes like constainer.style or properties like
-container.textContent.
+The wrapper `<div>` is called the `container` and it is _always_ wrapped around your compiled react code.
 
-Let's verify that our container element is indeed a `<div />`
+As you can see, the render method returns an object
+which has a `container` object on it. The `container` is a wrapper `<div>` that TLR wraps around the HTML resulting from the `render` method.
+Since the `container` object is a HTML div, we can interact with the `container` object just like we would interact with the DOM and any DOM element. For example, we can get properties like `constainer.style` or methods like `container.getAttribute()`.
+
+Conceptually, the `container` is a wrapper around the
+HTML that gets returned from the `render` method. It's purpose is to provide a consistent way to handle the output of the `render` method.
+
+With that in mind, let's verify that our container element is indeed a `<div />`
+
 Let's test our container and see what gets returned:
 
 ```tsx
