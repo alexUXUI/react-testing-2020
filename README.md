@@ -12,30 +12,47 @@ All relevant code for this exercise is located in `src/TodoList`
 
 #### Setting up Test Dependencies
 
-Lets begin:
+Within `src/TodoList` we have two files:
 
-Within `src/TodoList` we have two files, our app source code `todo-list.component.tsx` as well as our unit tests for this feature in `todo-list.test.tsx`
+1. App source code `todo-list.component.tsx`
+2. Unit tests for this feature in `todo-list.test.tsx`
 
 We'll start with `todo-list.test.tsx`.
 
 Let's import a couple of dependencies we will need to write tests.
 
+1. React
+2. Testing Library React (TLR)
+3. Our App code
+
 First, we need to bring in react. This is because our app code
 is written in react.
 
-`import React from 'react'`
+```tsx
+import React from 'react'
+```
 
 Next, we need to bring in our testing library.
 
-`import { render } from '@testing-library/react'`
+```tsx
+import { render } from '@testing-library/react'
+```
 
 From TLR, we are bringing in the `render` method. The `render` method takes a react element and renders it to a DOM within a `<div />` element.
 
-This `<div>` is called the `container` in TLR and it is _always_ wrapped around your compiled react code, returned by the render method.
+This
+
+```html
+<div></div>
+```
+
+is called the `container` in TLR and it is _always_ wrapped around your compiled react code.
 
 For our last dependency, we are going to include our application code so we have something to test.
 
-`import { TodoList } from './todo-list.component'`
+```tsx
+import { TodoList } from './todo-list.component'
+```
 
 This is what our Todo List code currently looks like:
 
@@ -81,7 +98,7 @@ can get attributes like constainer.style or properties like
 container.textContent.
 
 Let's verify that our container element is indeed a `<div />`
-Let's log our container and see what gets returned
+Let's test our container and see what gets returned:
 
 ```tsx
 test('Should have the necessary elements', async () => {
@@ -106,4 +123,4 @@ src/TodoList/todo-list.test.tsx
   ✓ Should have the necessary elements (4ms)
 ```
 
-Nice work! Let's refer to our next section to complete our first unit test which will query the DOM for the elements we need.
+Nice work! Let's refer to our next section to complete our first unit test which will query the DOM for the elements we need. (see branch first-test-querying)
