@@ -1,44 +1,102 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### Testing in React in 2020
 
-## Available Scripts
+Welcome to the current state of react testing. It is
+defined by the use of Testing Library React,
+which has replaced Enzyme as the standard way to unit
+test React apps.
 
-In the project directory, you can run:
+In this repo, we are going to Test Drive a todo list application using Testing Library React. Along the way,
+we will highlight some of the features of this new library.
 
-### `yarn start`
+All relevant code for this exercise is located in `src/TodoList`
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Lets begin:
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+Notice how right off the bat we have two files, our app source code `todo-list.component.tsx` as well as our unit tests for this feature in `todo-list.test.tsx`
 
-### `yarn test`
+We'll start with `todo-list.test.tsx`.
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+To Begin, we're going to import a couple of things we will need to write tests.
 
-### `yarn build`
+First, we need to bring in react. This is because the tests work on top of React and JSX
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+`import React from 'react'`
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+Next, we need to bring in our testing library
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+`import { render } from '@testing-library/react'`
 
-### `yarn eject`
+From our testing library, we are bringing in the render method. The render method takes a react element and renders it to a DOM within a `container` `<div />`. This is very important in terms of general understanding of how Testing Library works.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+To reiterate, the render function has a signature like this:
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+type render = (element: ReactElement) => <div><rendered html here /></div>
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+Finally, we are going to include our application code so we have something to test
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+`import { TodoList } from './todo-list.component'`
 
-## Learn More
+This is what our Todo List code currently looks like:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```tsx
+import React from 'react'
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+export const TodoList: React.FC = () => {
+  return <div data-testid="todos"></div>
+}
+```
+
+Let's dive in with some tests!
+
+The syntax for a test in Testing library is a funciton named `test` which takes to arguements: the name of the test, a call back function where
+the test is defiend.
+
+```jsx
+test('Should have the necessary elements', () => {})
+```
+
+Let's go ahead and fill this test out. To do this, we need to use Testing Library React to find the elements we will need to have a working ToDo list.
+
+What are the elements we will need for a basic todo list?
+
+1. A list
+2. An input form to name new list items
+3. A submit button to add the new items to the list
+
+Let's go ahead and write a test that renders our list component, and then inspect the HTML within the `container` div that gets returned from the render Method.
+
+```tsx
+test('Should have the necessary elements', () => {
+  const { container } = render(<TodoList />)
+})
+```
+
+As you can see, the render method returns an object which has a container object on it. This container object is regular HTML. As such, you can interact with it just like you would interact with the DOM and any DOM element. For example, we
+can get attributes like constainer.style or properties like
+container.textContent.
+
+Let's verify that our container element is indeed a `<div />`
+Let's log our container and see what gets returned
+
+```tsx
+test('Should have the necessary elements', async () => {
+  const { container } = render(<TodoList />)
+
+  expect(container instanceof HTMLDivElement).toBe(true) // true
+})
+```
+
+As you can see, we've added our first `assertion` with the `expect` method. Go ahead and run the test runner now that we have a test!
+
+in the root of this directory run:
+
+```shell
+$ yarn test
+```
+
+and you should see the output:
+
+```shell
+src/TodoList/todo-list.test.tsx
+  ✓ Should have the necessary elements (4ms)
+```
